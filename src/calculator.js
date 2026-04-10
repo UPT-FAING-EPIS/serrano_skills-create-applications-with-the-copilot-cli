@@ -7,6 +7,9 @@
  * - subtraction (-)
  * - multiplication (x, *, mul)
  * - division (/, ÷, div)
+ * - modulo (%, mod)
+ * - exponentiation (**, pow, power)
+ * - square root (sqrt)
  */
 
 function add(a, b) {
@@ -28,6 +31,24 @@ function divide(a, b) {
   return a / b;
 }
 
+function modulo(a, b) {
+  if (b === 0) {
+    throw new Error("modulo by zero is not allowed");
+  }
+  return a % b;
+}
+
+function power(base, exponent) {
+  return base ** exponent;
+}
+
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error("square root of a negative number is not allowed");
+  }
+  return Math.sqrt(n);
+}
+
 function calculate(operationInput, a, b) {
   const operation = String(operationInput).toLowerCase();
 
@@ -46,6 +67,15 @@ function calculate(operationInput, a, b) {
     case "/":
     case "÷":
       return divide(a, b);
+    case "mod":
+    case "%":
+      return modulo(a, b);
+    case "pow":
+    case "power":
+    case "**":
+      return power(a, b);
+    case "sqrt":
+      return squareRoot(a);
     default:
       throw new Error(`unsupported operation "${operationInput}"`);
   }
@@ -53,7 +83,7 @@ function calculate(operationInput, a, b) {
 
 function printUsageAndExit() {
   console.log("Usage: node src/calculator.js <operation> <a> <b>");
-  console.log("Operations: add|+  sub|-  mul|x|*  div|/|÷");
+  console.log("Operations: add|+  sub|-  mul|x|*  div|/|÷  mod|%  pow|power|**  sqrt");
   process.exit(1);
 }
 
@@ -87,5 +117,8 @@ module.exports = {
   subtract,
   multiply,
   divide,
+  modulo,
+  power,
+  squareRoot,
   calculate,
 };
